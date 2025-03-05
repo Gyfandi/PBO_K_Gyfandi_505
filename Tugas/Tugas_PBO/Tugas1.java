@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+//Deklarasi kelas Tugas1
 public class Tugas1 {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
