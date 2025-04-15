@@ -1,42 +1,43 @@
 import java.util.Scanner;
 
-//Deklarasi kelas Tugas1
-public class  Tugas1 {
+public class LoginSystem {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("pilihan login: ");
+        // Membuat objek Admin dan Mahasiswa
+        Admin admin = new Admin();
+        admin.username = "Admin505";
+        admin.password = "Password505";
+
+        Mahasiswa mahasiswa = new Mahasiswa();
+        mahasiswa.nama = "Gyfandi Mecca Firstson Cusy";
+        mahasiswa.nim = "202410370110505";
+
+        System.out.println("Pilihan login: ");
         System.out.println("1. Admin");
         System.out.println("2. Mahasiswa");
-        System.out.println("Masukkan pilihan: ");
+        System.out.print("Masukkan pilihan: ");
         int pilihan = input.nextInt();
         input.nextLine();
 
         if (pilihan == 1) {
-            System.out.println("Masukkan username: ");
+            System.out.print("Masukkan username: ");
             String username = input.nextLine();
-            System.out.println("Masukkan password: ");
+            System.out.print("Masukkan password: ");
             String password = input.nextLine();
 
-            String NIM = "505";
-            String usernameBenar = "Admin" + NIM;
-            String passwordBenar = "Password" + NIM;
-
-            if (username.equals(usernameBenar) && password.equals(passwordBenar)) {
+            if (admin.login(username, password)) {
                 System.out.println("Login Admin berhasil!");
-            } else{
+            } else {
                 System.out.println("Login gagal! Username atau password salah.");
             }
         } else if (pilihan == 2) {
-            System.out.println("Masukkan nama: ");
+            System.out.print("Masukkan nama: ");
             String nama = input.nextLine();
-            System.out.println("Masukkan NIM: ");
+            System.out.print("Masukkan NIM: ");
             String nim = input.nextLine();
 
-            String namaBenar = "Gyfandi Mecca Firstson Cusy";
-            String nimBenar = "202410370110505";
-
-            if (nama.equals(namaBenar) && nim.equals(nimBenar)) {
+            if (mahasiswa.login(nama, nim)) {
                 System.out.println("Login Mahasiswa berhasil!");
                 System.out.println("Nama: " + nama);
                 System.out.println("NIM: " + nim);
@@ -46,6 +47,7 @@ public class  Tugas1 {
         } else {
             System.out.println("Pilihan tidak valid.");
         }
+
         input.close();
     }
 }
