@@ -4,14 +4,8 @@ public class LoginSystem {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        // Membuat objek Admin dan Mahasiswa
         Admin admin = new Admin();
-        admin.username = "Admin505";
-        admin.password = "Password505";
-
         Mahasiswa mahasiswa = new Mahasiswa();
-        mahasiswa.nama = "Gyfandi Mecca Firstson Cusy";
-        mahasiswa.nim = "202410370110505";
 
         System.out.println("Pilihan login: ");
         System.out.println("1. Admin");
@@ -21,9 +15,10 @@ public class LoginSystem {
         input.nextLine();
 
         if (pilihan == 1) {
-            System.out.print("Masukkan username: ");
+            // Login sebagai Admin
+            System.out.print("Masukkan Username: ");
             String username = input.nextLine();
-            System.out.print("Masukkan password: ");
+            System.out.print("Masukkan Password: ");
             String password = input.nextLine();
 
             if (admin.login(username, password)) {
@@ -31,16 +26,17 @@ public class LoginSystem {
             } else {
                 System.out.println("Login gagal! Username atau password salah.");
             }
+
         } else if (pilihan == 2) {
-            System.out.print("Masukkan nama: ");
+            // Login sebagai Mahasiswa
+            System.out.print("Masukkan Nama: ");
             String nama = input.nextLine();
             System.out.print("Masukkan NIM: ");
             String nim = input.nextLine();
 
             if (mahasiswa.login(nama, nim)) {
                 System.out.println("Login Mahasiswa berhasil!");
-                System.out.println("Nama: " + nama);
-                System.out.println("NIM: " + nim);
+                mahasiswa.displayInfo();
             } else {
                 System.out.println("Login gagal! Nama atau NIM salah.");
             }
