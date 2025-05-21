@@ -1,80 +1,83 @@
 package com.praktikum.users;
 
-import com.praktikum.actions.MahasiswaActions;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.praktikum.actions.MahasiswaActions;
+import com.praktikum.models.Item;
+import com.praktikum.main.LoginSystem;
+import com.praktikum.models.Item;
 
 public class Mahasiswa extends User implements MahasiswaActions {
 
     public Mahasiswa(String nama, String nim) {
         super(nama, nim);
     }
+    Scanner scanner = new Scanner(System.in);
 
-    @Override
-    public boolean login(String nama, String nim) {
-        return getNama().equalsIgnoreCase(nama) && getNim().equals(nim);
+    public void reportItem(){
+        System.out.print("Nama barang: ");
+        String namaBarang = scanner.nextLine();
+        System.out.print("Deskripsi barang: ");
+        String deskripsiBarang = scanner.nextLine();
+        System.out.print("Lokasi Terakhir/Ditemukan: ");
+        String lokasiBarang = scanner.nextLine();
+        Item barangHilang = new Item(namaBarang, deskripsiBarang, lokasiBarang);
+        LoginSystem.barangDilaporkan(barangHilang);
+        System.out.println("Informasi barang telah tersimpan.");
     }
 
-    @Override
-    public void displayInfo() {
-        System.out.println("Login Mahasiswa berhasil!");
-        super.displayInfo();
-    }
-
-    @Override
-    public void displayAppMenu() {
-        Scanner input = new Scanner(System.in);
-
-        while (true) {  // Menambahkan loop agar mahasiswa dapat memilih beberapa opsi
-            System.out.println("\n1. Laporkan Barang Temuan/Hilang");
-            System.out.println("2. Lihat Daftar Laporan");
-            System.out.println("0. Logout");
-            System.out.print("Masukkan pilihan: ");
-            int pilihan = input.nextInt();
-            input.nextLine();
-
-            switch (pilihan) {
-                case 1:
-                    reportItem();
-                    break;
-                case 2:
-                    viewReportedItems();
-                    break;
-                case 0:
-                    logout();
-                    return;
-                default:
-                    System.out.println("Pilihan tidak valid.");
+    public void viewReportedItems(){
+        if (LoginSystem.barangDilaporkan.isEmpty()) {
+            System.out.println("Belum ada laporan barang.");
+            return;
+        }
+        System.out.println("Daftar barang dilaporkan:");
+        for (Item barang : LoginSystem.barangDilaporkan) {
+            if (barang.getStatus().equals("Reported")) {
+                System.out.println("- Nama: " + barang.getNamaBarang() + " | Deskripsi: " + barang.getDeskripsiBarang() + " | Lokasi: " + barang.getLokasi());
             }
         }
     }
 
     @Override
-    public void reportItem() {
-        Scanner input = new Scanner(System.in);
+    public void displayAppMenu(){
+        int pilihan = 0;
+        do {
+            System.out.println();
+            System.out.println("Menu");
+            System.out.println("1. Laporkan Barang Temuan/Hilang");
+            System.out.println("2. Lihat Daftar Laporan");
+            System.out.println("0. Logout");
+            System.out.print("Masukkan Pilihan Anda: ");
+            try {
+                pilihan = scanner.nextInt();
+                scanner.nextLine();
+            } catch (InputMismatchException e){
+                System.out.println("Input harus berupa angka!");
+                scanner.nextLine();
+            }
 
-        System.out.println("Masukkan Nama Barang: ");
-        String namaBarang = input.nextLine();
-
-        System.out.println("Masukkan Deskripsi Barang: ");
-        String deskripsiBarang = input.nextLine();
-
-        System.out.println("Masukkan Lokasi Terakhir/Dimenangkan: ");
-        String lokasi = input.nextLine();
-
-        // Menampilkan konfirmasi input
-        System.out.println("\nLaporan Barang:");
-        System.out.println("Nama Barang: " + namaBarang);
-        System.out.println("Deskripsi Barang: " + deskripsiBarang);
-        System.out.println("Lokasi Terakhir/Dimenangkan: " + lokasi);
+            if (pilihan == 1){
+                reportItem();
+            } else if (pilihan == 2) {
+                viewReportedItems();
+            } else if (pilihan == 0){
+                System.out.println("Logging out...");
+            } else {
+                System.out.println("Pilihan Tidak Valid!");
+            }
+        } while (pilihan != 0);
     }
 
     @Override
-    public void viewReportedItems() {
-        // Menampilkan daftar barang yang dilaporkan, saat ini hanya placeholder
-        System.out.println("Fitur Lihat Laporan Belum Tersedia");
+    public boolean login(String inputNama, String inputNim) {
+        return getNama().equalsIgnoreCase(inputNama) && getNim().equals(inputNim);
     }
 
-    public void logout() {
-        System.out.println("Logout berhasil. Terima kasih telah menggunakan aplikasi.");
+    @Override
+    public void displayInfo() {
+        System.out.println("Login Mahasiswa berhasil!");
+        System.out.println("Nama: " + getNama());
+        System.out.println("NIM: " + getNim());
     }
 }
