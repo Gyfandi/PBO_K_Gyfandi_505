@@ -4,8 +4,16 @@ public abstract class User {
     private String nama;
     private String nim;
 
-    public User(String nama, String nim) {
+    public User(String nama, String nim){
         this.nama = nama;
+        this.nim = nim;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public void setNim(String nim) {
         this.nim = nim;
     }
 
@@ -19,7 +27,8 @@ public abstract class User {
 
     public abstract boolean login(String input1, String input2);
 
-    public void displayInfo(){}
+    public void displayInfo(){
+    }
 
-    public abstract void displayAppMenu();
+    public abstract void dispLayAppMenu();
 }
