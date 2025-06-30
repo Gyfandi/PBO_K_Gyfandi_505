@@ -10,9 +10,9 @@ public class DataStore {
     public static ArrayList<Item> reportedItems = new ArrayList<>();
 
     static {
-        userList.add(new Admin("Admin505", "202410370110505", "Admin505", "Password505"));
-        userList.add(new Mahasiswa("Gyfandi Mecca Firstson Cusy", "202410370110505"));
-        userList.add(new Mahasiswa("Farel Bayuputra Irawan", "202410370110496"));
+        userList.add(new Admin("Admin505", "202410370110517", "Admin505", "Password505"));
+        userList.add(new Mahasiswa("Sayyi Zaidan Akmal", "202410370110517"));
+        userList.add(new Mahasiswa("Erlin Mariska", "202410370110514"));
 
         reportedItems.add(new Item("HP", "Meja A-01", "Smartphone", userList.get(1)));
         reportedItems.add(new Item("Dompet", "Meja B-19", "Dompet Pria Kulit Hitam", userList.get(2)));
